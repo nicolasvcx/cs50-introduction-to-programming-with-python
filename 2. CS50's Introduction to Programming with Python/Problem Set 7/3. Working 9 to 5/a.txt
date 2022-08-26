@@ -1,0 +1,36 @@
+    try:
+        time = re.search(
+            r"^([0-9]+):?([0-9]+)? (A?P?M) to ([0-9]+)?:?([0-9]+)? (A?P?M)$", s, re.IGNORECASE)
+
+        if time.group(3) == 'am' or time.group(3) == 'AM':
+            if int(time.group(1)) < 10:
+                first_hour = "0" + time.group(1)
+            else:
+                first_hour = time.group(1)
+        else:
+            first_hour = int(time.group(1)) + 12
+            first_hour = str(first_hour)
+
+        if time.group(2) == None:
+            first_minute = "00"
+        else:
+            first_minute = time.group(2)
+
+        if time.group(6) == 'am' or time.group(6) == 'AM':
+            if int(time.group(4)) < 10:
+                second_hour = "0" + time.group(4)
+            else:
+                second_hour = time.group(4)
+        else:
+            second_hour = int(time.group(4)) + 12
+            second_hour = str(second_hour)
+
+        if time.group(5) == None:
+            second_minute = "00"
+        else:
+            second_minute = time.group(5)
+
+        return first_hour + ":" + first_minute + " to " + second_hour + ":" + second_minute
+
+    except ValueError:
+        sys.exit(1)
